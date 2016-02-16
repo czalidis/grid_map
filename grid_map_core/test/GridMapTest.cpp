@@ -109,12 +109,12 @@ TEST(AddDataFrom, extendMapNotAligned)
 TEST(AddDataFrom, copyData)
 {
   GridMap map1, map2;
-  map1.setGeometry(Length(5.1, 5.1), 1.0, Position(0.0, 0.0)); // bufferSize(5, 5)
+  map1.setGeometry(Length(10.0, 10.0), 0.02, Position(0.0, 0.0));
   map1.add("zero", 0.0);
   map1.add("one");
   map1.setBasicLayers(map1.getLayers());
 
-  map2.setGeometry(Length(3.1, 3.1), 1.0, Position(2.0, 2.0));
+  map2.setGeometry(Length(5.0, 5.0), 0.02, Position(2.0, 2.0));
   map2.add("one", 1.0);
   map2.add("two", 2.0);
   map2.setBasicLayers(map1.getLayers());
@@ -124,9 +124,9 @@ TEST(AddDataFrom, copyData)
   map1.getIndex(Position(-2, -2), index);
 
   EXPECT_TRUE(map1.exists("two"));
-  EXPECT_FALSE(map1.isInside(Position(3.0, 3.0)));
-  EXPECT_DOUBLE_EQ(5.0, map1.getLength().x());
-  EXPECT_DOUBLE_EQ(5.0, map1.getLength().y());
+  EXPECT_TRUE(map1.isInside(Position(3.0, 3.0)));
+  EXPECT_DOUBLE_EQ(10.0, map1.getLength().x());
+  EXPECT_DOUBLE_EQ(10.0, map1.getLength().y());
   EXPECT_DOUBLE_EQ(0.0, map1.getPosition().x());
   EXPECT_DOUBLE_EQ(0.0, map1.getPosition().y());
   EXPECT_DOUBLE_EQ(1.0, map1.atPosition("one", Position(2, 2)));
